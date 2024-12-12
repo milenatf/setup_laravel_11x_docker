@@ -1,8 +1,6 @@
-version: "3.7"
-
 services:
   # image project
-  setup_app:
+  laravel_11:
     build:
       args:
         user: milena
@@ -13,21 +11,21 @@ services:
     volumes:
       - ./:/var/www
     networks:
-      - setup_app_network
+      - laravel_11_network
 
   # nginx
-  setup_app_nginx:
+  laravel_11_nginx:
     image: nginx:alpine
     ports:
-      - "8080:80"
+      - "8011:80"
     volumes:
       - ./:/var/www
       - ./docker/nginx/:/etc/nginx/conf.d/
     networks:
-      - setup_app_network
+      - laravel_11_network
 
   # db mysql
-  db_setup_app:
+  db_laravel_11:
     image: mysql:8.0
     platform: linux/x86_64
     environment:
@@ -38,9 +36,9 @@ services:
     volumes:
       - ./.docker/mysql/dbdata:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3311:3306"
     networks:
-      - setup_app_network
+      - laravel_11_network
 networks:
-  setup_app_network:
+  laravel_11_network:
     driver: bridge
